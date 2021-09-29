@@ -1,0 +1,20 @@
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+
+После этого можно определить структуру данных indexed_set, которая 
+похожа на множество, но допускает индексирование как массив. Для зна-
+чений типа int определение выглядит так:
+
+typedef tree<int,null_type,less<int>, rb_tree_tag,
+             tree_order_statistics_node_update> indexed_set;
+
+А создается множество так:
+
+indexed_set s;
+s.insert(2);
+s.insert(3);
+s.insert(7);
+s.insert(9)
+
+auto x = s.find_by_order(2);
+cout << *x << "\n"; // 7
