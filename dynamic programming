@@ -21,3 +21,59 @@ int main() {
     }
     return 0;
 }
+
+#######Largest possible path: The sum of the values on the path is 67, and this is the largest possible sum on a path from the upper-left corner to the lower-right corner.
+int sum[N][N];
+and calculate the sums as follows:
+for (int y = 1; y <= n; y++) {
+for (int x = 1; x <= n; x++) {
+sum[y][x] = max(sum[y][x-1],sum[y-1][x])+value[y][x];
+}
+}
+
+######Longest increasing subsequence
+for (int k = 0; k < n; k++) {
+length[k] = 1;
+for (int i = 0; i < k; i++) {
+if (array[i] < array[k]) {
+length[k] = max(length[k],length[i]+1);
+}
+}
+}
+
+#########Counting the number of solutions
+count[0] = 1;
+for (int x = 1; x <= n; x++) {
+for (auto c : coins) {
+if (x-c >= 0) {
+count[x] += count[x-c];
+}
+}
+}
+
+#########Пусть имеется множество номиналов монет coins = {c1, c2, …, ck} и денежная сумма n. Задача заключается в том, чтобы разменять сумму n, исполь-зовав как можно
+меньше монет. Количество монет одного номинала не ограничено. Например, если coins = {1, 2, 5} и n = 12, то оптимальное решение 5 + 5 + 2 = 12, так что достаточно трех монет
+
+int solve(int x) {
+ if (x < 0) return INF;
+ if (x == 0) return 0;
+ if (ready[x]) return value[x];
+ int best = INF;
+ for (auto c : coins) {
+ best = min(best, solve(x-c)+1);
+ }
+ ready[x] = true;
+ value[x] = best;
+ return best;
+}
+
+iteratively,
+value[0] = 0;
+for (int x = 1; x <= n; x++) {
+value[x] = INF;
+for (auto c : coins) {
+if (x-c >= 0) {
+value[x] = min(value[x], value[x-c]+1);
+}
+}
+}
